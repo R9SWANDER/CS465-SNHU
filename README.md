@@ -1,2 +1,11 @@
 # CS465-SNHU
-CS465 Full Stack with Mean - SNHU
+In CS465 I developed a full stack web application for a travel destination website.
+This web application was created with a MEAN stack: MongoDB, Express, Angular & Node.js
+
+To develop the frontend for the project, I had to create routes and controllers which utilized 'components', or the actual objects which appear on the page, to display everything to the user. These components typically consisted of an HTML and .ts file. The HTML detailed how to object would be presented on the page, and the .ts file detailed and defined the outside data the component needed to generate itself. Furthermore, a single-page application (SPA) was created to streamline and semi-automate the management of trips on the website. This SPA had to possess the same access to viewing as the rest of the front end, but also needed to be capable of adding, editing, and or removing trips from the website, by interacting with the database. The database utilizes NoSQL for ease of use and performance reasons. NoSQL is the best choice for any website whose main purpose is displaying simple information which does not require much calculation, which fits the needs of a travel destination website perfectly.
+
+JSON is used in the project to connect the Javascript to the backend, by automating the translation of javascript objects into MongoDB understandable language or vice versa. The design also changed multiple times throughout development, as the start-point of the website was a static HTML page. Multiple pieces of the original HTML were preserved in the final product but were refactored to include HTML shortcuts provided by the Express & Angular framework to shorten the length of the HTML while preserving the readability. 
+
+This is the first project in which I created API endpoints for an application and tested the project using them. Postman was needed to test specifically the API endpoints and verify they properly interacted with the database. This interaction was further complicated when adding login security, as Postman also needed to provide authentication as part of the API request. 
+
+This course has helped me tie-in how different parts of a software can work together to create an application. I can now confidently use a database in conjunction with an application to store and access data, as well as create a frontend which communicates with that database to display the data in a deliberately formatted way. I have also found the usefulness of an SPA and learned how to implement one in a project. 
