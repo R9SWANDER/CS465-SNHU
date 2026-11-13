@@ -1,3 +1,6 @@
+/// JWT Interceptor to add the JWT token to the Authorization header of HTTP requests. ///
+
+
 import { Injectable,Provider } from '@angular/core'; 
 import { HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http'; 
 import { HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http'; 

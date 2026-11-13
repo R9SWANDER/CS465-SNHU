@@ -1,3 +1,6 @@
+/// TripData service for managing trip-related API calls and user authentication ///
+
+
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -12,6 +15,7 @@ import { BROWSER_STORAGE } from '../storage';
   providedIn: 'root'
 })
 
+// Handles API calls for trips
 export class TripData {
 
    baseUrl = 'http://localhost:3000/api';
@@ -23,20 +27,17 @@ export class TripData {
 
   // Call to our /login endpoint, returns JWT 
   login(user: User, passwd: string) : Observable<AuthResponse> { 
-    // console.log('Inside TripDataService::login'); 
     return this.handleAuthAPICall('login', user, passwd); 
   } 
  
   // Call to our /register endpoint, creates user and returns JWT 
-  register(user: User, passwd: string) : Observable<AuthResponse> { 
-    // console.log('Inside TripDataService::register'); 
+  register(user: User, passwd: string) : Observable<AuthResponse> {  
     return this.handleAuthAPICall('register', user, passwd); 
   } 
  
   // helper method to process both login and register methods 
   handleAuthAPICall(endpoint: string, user: User, passwd: string) : 
 Observable<AuthResponse> { 
-    // console.log('Inside TripDataService::handleAuthAPICall'); 
     let formData = { 
       name: user.name, 
       email: user.email, 
@@ -46,7 +47,7 @@ Observable<AuthResponse> {
     return this.http.post<AuthResponse>(this.baseUrl + '/' + endpoint, formData); 
   } 
   
-
+  /// Trip-related API calls ///
   getTrips(): Observable<Trip[]> {
     return this.http.get<Trip[]>(this.baseUrl + '/trips');
   }
@@ -61,5 +62,9 @@ Observable<AuthResponse> {
 
   updateTrip(formData: Trip): Observable<Trip> {
     return this.http.put<Trip>(this.baseUrl + '/trips/' + formData.code, formData);
+  }
+
+  deleteTrip(tripCode: string): Observable<Trip> {
+    return this.http.delete<Trip>(this.baseUrl + '/trips/' + tripCode);
   }
 }

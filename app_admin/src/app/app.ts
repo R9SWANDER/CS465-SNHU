@@ -1,11 +1,13 @@
+/// Application root component for the Travlr Getaways Admin application. ///
+
+
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { TripListing } from './trip-listing/trip-listing';
 import { Navbar } from './navbar/navbar';
 
 @Component({
-  imports: [CommonModule, RouterOutlet, TripListing, Navbar],
+  imports: [CommonModule, RouterOutlet, Navbar],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',

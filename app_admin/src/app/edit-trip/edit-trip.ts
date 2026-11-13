@@ -1,3 +1,7 @@
+/// Runs logic to edit a trip in the database ///
+// -- Edits a trip in the database and returns to trip listing page -- ///
+
+
 import { Component, OnInit } from '@angular/core'; 
 import { CommonModule } from '@angular/common'; 
 import { Router } from '@angular/router'; 
@@ -34,9 +38,7 @@ export class EditTrip implements OnInit {
       return;
     }
 
-    console.log('EditTrip::ngOnInit');
-    console.log('tripcode:' + tripCode);
-
+    // Initialize the form with validation rules
     this.editForm = this.formBuilder.group({
       _id: [],
       code: ['', Validators.required],
@@ -49,10 +51,17 @@ export class EditTrip implements OnInit {
       description: ['', Validators.required]
     });
 
+    // Fetch trip details and populate the form with current trip values
     this.tripData.getTrip(tripCode)
       .subscribe({
         next: (value: any) => {
-          this.trip = value;
+          this.trip = Array.isArray(value) ? value[0] : value;
+
+          if (this.trip.start) {
+            // Convert the start date to format YYYY-MM-DD
+            this.trip.start = this.trip.start.substring(0, 10); 
+          }
+
           this.editForm.patchValue(value[0]);
           if(!value)
           {
@@ -69,6 +78,7 @@ export class EditTrip implements OnInit {
       });
   }
 
+  // When form is submitted -> activate updateTrip() using form data
    public onSubmit() { 
 
     this.submitted = true; 

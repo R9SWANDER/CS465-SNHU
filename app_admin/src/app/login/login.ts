@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core'; 
+/// Handles user login and authentication logic ///
+
+
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core'; 
 import { CommonModule } from '@angular/common'; 
 import { FormsModule } from "@angular/forms"; 
 import { Router } from '@angular/router'; 
@@ -24,46 +27,42 @@ export class Login {
 
   constructor( 
     private router: Router, 
-    private authenticationService: Authentication 
+    private authenticationService: Authentication,
+    private cdr: ChangeDetectorRef
   ) { } 
  
   ngOnInit(): void { 
   } 
 
+  // When form is submitted -> activate doLogin() using form data
    public onLoginSubmit(): void { 
     this.formError = ''; 
     if (!this.credentials.email || !this.credentials.password || 
           !this.credentials.name) { 
-      this.formError = 'All fields are required, please try again'; 
-      this.router.navigateByUrl('#'); // Return to login page 
+      console.log('LoginSubmit::Failure');
+      this.formError = 'Login Failed, Redirecting...';
+      this.cdr.detectChanges();
+      setTimeout(() => {
+        this.router.navigateByUrl('#'); // Return to login page
+        console.log('LoginFailure::Wait::' + this.formError);
+      }, 1500); 
     } else { 
-      this.doLogin(); 
+      this.doLogin();
     } 
   }
-
+   // Login method to route to auhentication
    private doLogin(): void { 
     let newUser = { 
       name: this.credentials.name, 
       email: this.credentials.email 
     } as User; 
  
-    // console.log('LoginComponent::doLogin'); 
-    // console.log(this.credentials);
-     this.authenticationService.login(newUser, 
- this.credentials.password); 
- 
-    if(this.authenticationService.isLoggedIn()) 
-    { 
-      // console.log('Router::Direct'); 
-      this.router.navigate(['']); 
-    } else { 
-      var timer = setTimeout(() => { 
-      if(this.authenticationService.isLoggedIn()) 
-      { 
-        // console.log('Router::Pause'); 
-        this.router.navigate(['']); 
-      }},3000); 
-    } 
+    this.authenticationService.login(newUser, 
+    this.credentials.password); 
+
+    this.router.navigate(['']);
+    console.log('LoginComponent::Success');
+
   }
 
 }

@@ -1,3 +1,7 @@
+/// Runs logic to add a trip to the database ///
+// -- Adds a trip to the database and returns to trip listing page -- ///
+
+
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -23,6 +27,7 @@ export class AddTrip implements OnInit {
    private tripService: TripData 
  ) { } 
  
+ // Initialize the form with validation rules
  ngOnInit() { 
    this.addForm = this.formBuilder.group({ 
      _id: [], 
@@ -37,6 +42,7 @@ export class AddTrip implements OnInit {
    }) 
  } 
  
+ // When form is submitted -> activate addTrip() using form data
  public onSubmit() { 
    this.submitted = true; 
    if(this.addForm.valid){ 

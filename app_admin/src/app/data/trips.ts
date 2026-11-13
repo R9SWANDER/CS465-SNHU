@@ -1,3 +1,5 @@
+/// Data to seed the application with trips
+
 export const trips = [
     {
         "code" : "GALR210214",

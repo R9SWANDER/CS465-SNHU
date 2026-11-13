@@ -1,3 +1,5 @@
+/// Defines the structure of a Trip object ///
+
 export interface Trip {
     _id: string,
     code: string,

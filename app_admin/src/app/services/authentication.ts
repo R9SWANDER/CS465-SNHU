@@ -1,9 +1,13 @@
+/// Authentication service for handling user login, registration, and token management ///
+
+
 import { inject, Service } from '@angular/core';
 import { Inject, Injectable } from '@angular/core';
 import { BROWSER_STORAGE } from '../storage';
 import { User } from '../models/user';
 import { AuthResponse } from '../models/auth-response';
 import { TripData } from '../services/trip-data';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -12,9 +16,13 @@ export class Authentication {
 
     private storage = inject(BROWSER_STORAGE) as Storage;
     private tripDataService = inject(TripData) as TripData;
+    private authChanged = new BehaviorSubject<boolean>(false);
+    public authStatus$ = this.authChanged.asObservable();
 
     // Setup our storage and service access 
-    constructor( ) { } 
+    constructor() { 
+      this.authChanged.next(this.isLoggedIn());
+    } 
 
 
  
@@ -39,13 +47,16 @@ export class Authentication {
   // the key for our token 'travlr-token' 
   public saveToken(token: string): void { 
     this.storage.setItem('travlr-token', token); 
+    this.authChanged.next(true);
   } 
  
   // Logout of our application and remove the JWT from Storage 
   public logout(): void { 
     this.storage.removeItem('travlr-token'); 
+    this.authChanged.next(false);
+    console.log('Authentication::logout::User logged out');
   }
-  // Boolean to determine if we are logged in and the token is 
+  // Boolean to determine  and the token is if we are logged in
   // still valid. Even if we have a token we will still have to  
   // reauthenticate if the token has expired 
   public isLoggedIn(): boolean { 
@@ -68,9 +79,7 @@ export class Authentication {
   }
   // Login method that leverages the login method in tripDataService 
   // Because that method returns an observable, we subscribe to the  
-  // result and only process when the Observable condition is satisfied 
-  // Uncomment the two console.log messages for additional debugging 
-  // information. 
+  // result and only process when the Observable condition is satisfied  
   public login(user: User, passwd: string) : void { 
     this.tripDataService.login(user,passwd) 
       .subscribe({ 
@@ -86,10 +95,11 @@ export class Authentication {
           console.log('Error: ' + error); 
         } 
       }) 
+
   }
-   // Register method that leverages the register method in 
-     // tripDataService
- // Because that method returns an observable, we subscribe to the  
+  // Register method that leverages the register method in 
+  // tripDataService
+  // Because that method returns an observable, we subscribe to the  
   // result and only process when the Observable condition is satisfied 
   // Uncomment the two console.log messages for additional debugging 
   // information. Please Note: This method is nearly identical to the 
@@ -109,8 +119,6 @@ export class Authentication {
         error: (error: any) => { 
           console.log('Error: ' + error); 
         } 
-      }) 
+      })
   }
-
-
 }

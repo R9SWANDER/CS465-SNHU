@@ -1,3 +1,5 @@
+<!-- Creates a Form to add a new trip -->
+
 <div class="col-md-4"> 
     <h2 class="text-center">Add Trip</h2> 
     <form *ngIf="addForm" [formGroup]="addForm" 
@@ -72,8 +74,7 @@
         <label>Per Person:</label> 
         <input type="text" formControlName="perPerson"  
           placeholder="Perperson" class="form-control" 
-          [ngClass]="{ 'is-invalid': submitted && 
-f['perPerson'].errors }"> 
+          [ngClass]="{ 'is-invalid': submitted && f['perPerson'].errors }"> 
         <div *ngIf="submitted && f['perPerson'].errors"> 
           <div *ngIf="f['perPerson'].errors?.['required']"> 
              Per Person is required 
@@ -98,8 +99,7 @@ f['perPerson'].errors }">
         <label>Description:</label> 
         <input type="text" formControlName="description"  
           placeholder="Description" class="form-control" 
-          [ngClass]="{ 'is-invalid': submitted && 
-f['description'].errors }"> 
+          [ngClass]="{ 'is-invalid': submitted && f['description'].errors }"> 
         <div *ngIf="submitted && f['description'].errors"> 
             <div *ngIf="f['description'].errors?.['required']"> 
             Description is required  
