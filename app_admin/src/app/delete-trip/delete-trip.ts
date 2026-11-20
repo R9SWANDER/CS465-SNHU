@@ -62,7 +62,7 @@ export class DeleteTrip implements OnInit {
   }
 
   // Confirm deletion of the trip
-  public confirmDelete() {
+  private confirmDelete() {
     this.tripData.deleteTrip(this.trip.code).subscribe({
       next: (value: any) => {
         console.log('Trip deleted successfully');

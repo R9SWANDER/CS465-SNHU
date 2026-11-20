@@ -7,10 +7,12 @@ const User = mongoose.model('users');
 passport.use(
     new LocalStrategy(
         {
-            usernameField: 'email',
+            usernameField: 'userName',
         },
-        async (username, password, done) => {
-            const q = await User.findOne({ email: username }).exec();
+        async (userName, password, done) => {
+            console.log('Passport Login: ', userName, password);
+            const q = await User.findOne({ userName }).exec();
+            console.log('Passport after search: ', q);
             if (!q) {
                 return done(null, false, {
                     message: 'Incorrect username.',

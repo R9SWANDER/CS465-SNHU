@@ -74,8 +74,8 @@ export class Authentication {
   // isLoggedIn.  
   public getCurrentUser(): User { 
     const token: string = this.getToken(); 
-    const { email, name } = JSON.parse(atob(token.split('.')[1])); 
-    return { email, name } as User; 
+    const { email, userName } = JSON.parse(atob(token.split('.')[1])); 
+    return { email, userName } as User; 
   }
   // Login method that leverages the login method in tripDataService 
   // Because that method returns an observable, we subscribe to the  

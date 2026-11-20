@@ -4,7 +4,7 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { Authentication } from '../services/authentication';
 import { Subscription } from 'rxjs/internal/Subscription';
 
@@ -24,8 +24,13 @@ export class Navbar implements OnInit, OnDestroy {
  
   constructor( 
     private authenticationService: Authentication,
+    private router: Router,
     private cdr: ChangeDetectorRef
   ) { } 
+
+  public userListing(): void {
+    this.router.navigate(['user-listing']);
+  }
  
   // Initialize the component and subscribe to authentication status 
   ngOnInit() {
@@ -34,7 +39,6 @@ export class Navbar implements OnInit, OnDestroy {
     .authStatus$
     .subscribe(status => {
       this.loginWatcher = status;
-
       this.cdr.detectChanges();
 
     });

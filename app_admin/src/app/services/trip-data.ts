@@ -27,6 +27,7 @@ export class TripData {
 
   // Call to our /login endpoint, returns JWT 
   login(user: User, passwd: string) : Observable<AuthResponse> { 
+    console.log('Login Request: ', user, passwd);
     return this.handleAuthAPICall('login', user, passwd); 
   } 
  
@@ -39,8 +40,8 @@ export class TripData {
   handleAuthAPICall(endpoint: string, user: User, passwd: string) : 
 Observable<AuthResponse> { 
     let formData = { 
-      name: user.name, 
-      email: user.email, 
+      userName: user.userName, 
+      //email: user.email, 
       password: passwd 
     }; 
  

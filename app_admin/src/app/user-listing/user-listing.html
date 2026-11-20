@@ -1,0 +1,37 @@
+<!--Join the user lines and whole page-->
+
+<div class="row mb-3">
+    <div class="col-md-4">
+        <input
+            type="text"
+            class="form-control"
+            placeholder="Search username..."
+            [(ngModel)]="usernameFilter"
+            (input)="applyFilters()">
+    </div>
+
+    <div class="col-md-2">
+        <button
+            class="btn btn-outline-primary"
+            (click)="sortToggle()">
+            Sort
+            {{ sortAscending ? 'Z-A' : 'A-Z' }}
+        </button>
+    </div>
+
+
+</div>
+
+
+
+<div *ngIf="isLoggedIn()">
+    <button (click)="addUser()" class="btn btn-info">Add User</button>
+</div>
+<br>
+<div class="row">
+    <div *ngFor="let user of displayedUsers" class="col-12"> 
+        <app-user-line [user]="user" class="d-flex gap-4 mb-2"></app-user-line> 
+    </div> 
+ </div> 
+
+

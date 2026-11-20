@@ -3,11 +3,11 @@
 
 export class User {
     email: string;
-    name: string;
+    userName: string;
 
     constructor()
     {
         this.email = '';
-        this.name = '';
+        this.userName = '';
     }
 }

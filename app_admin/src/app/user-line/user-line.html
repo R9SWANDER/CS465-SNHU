@@ -1,0 +1,23 @@
+<div class="d-flex gap-4">
+    <span style="min-width: 140px;"><strong>{{ user.userName }} </strong></span>
+    <span class="email-column">{{ user.email }}</span>
+    <span style="min-width: 60px;">role</span>
+    <div ngIf*="isLoggedIn()">
+        <button type="button"
+            class="btn btn-sm btn-outline-primary"
+            style="min-width: 140px;"
+            (click)="editUser(user)">
+            Edit Role
+        </button>
+    </div>
+    <button type="button"
+            class="btn btn-sm btn-outline-danger"
+            style="min-width: 140px;"
+            (click)="deleteUser(user)">
+        Delete
+    </button>
+    <br>
+</div>
+
+
+    

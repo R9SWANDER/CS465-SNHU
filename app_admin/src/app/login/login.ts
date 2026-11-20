@@ -20,8 +20,8 @@ export class Login {
   submitted = false;
 
   credentials = {
-    name: '',
-    email: '',
+    userName: '',
+    //email: '',
     password: ''
   };
 
@@ -37,8 +37,7 @@ export class Login {
   // When form is submitted -> activate doLogin() using form data
    public onLoginSubmit(): void { 
     this.formError = ''; 
-    if (!this.credentials.email || !this.credentials.password || 
-          !this.credentials.name) { 
+    if (!this.credentials.password || !this.credentials.userName) { 
       console.log('LoginSubmit::Failure');
       this.formError = 'Login Failed, Redirecting...';
       this.cdr.detectChanges();
@@ -53,8 +52,8 @@ export class Login {
    // Login method to route to auhentication
    private doLogin(): void { 
     let newUser = { 
-      name: this.credentials.name, 
-      email: this.credentials.email 
+      userName: this.credentials.userName 
+      //email: this.credentials.email 
     } as User; 
  
     this.authenticationService.login(newUser, 

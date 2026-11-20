@@ -8,9 +8,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    name: {
+    userName: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     hash: String,
     salt: String,
@@ -36,7 +37,7 @@ userSchema.methods.generateJWT = function() {
     { // Payload for our JSON Web Token 
         _id: this._id, 
         email: this.email, 
-        name: this.name 
+        userName: this.userName 
     },  
     process.env.JWT_SECRET, //SECRET stored in .env file 
     { expiresIn: '1h' });   

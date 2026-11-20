@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken')
 // This is where we import the controllers we will route
 const tripsController = require("../controllers/trips");
 const authController = require("../controllers/authentication");
+const usersController = require("../controllers/users");
 
 // Method to authenticate our JWT 
 function authenticateJWT(req, res, next) { 
@@ -67,5 +68,18 @@ router
     .get(tripsController.tripsFindByCode)
     .put(authenticateJWT, tripsController.tripsUpdateTrip)
     .delete(authenticateJWT, tripsController.tripsDeleteTrip);
+
+// GET Method route for our users endpoint
+router
+    .route('/users')
+    .get(authenticateJWT, usersController.usersList) // GET routes usersList
+    .post(usersController.usersAddUser); // POST Adds a User
+
+// GET Method routes usersFindByName - requires parameter
+router
+    .route('/users/:userName')
+    .get(authenticateJWT, usersController.usersFindByName)
+    .put(authenticateJWT, usersController.usersUpdateUser)
+    .delete(authenticateJWT, usersController.usersDeleteUser);
 
 module.exports = router;
